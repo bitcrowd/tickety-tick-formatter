@@ -2,7 +2,6 @@ import format, { helpers } from '.';
 import pprint from './pretty-print';
 
 jest.mock('./pretty-print', () => jest.fn());
-const mockedPprint = pprint as jest.MockedFunction<typeof pprint>;
 
 describe('ticket formatting', () => {
   const ticket = {
@@ -12,7 +11,7 @@ describe('ticket formatting', () => {
   };
 
   beforeEach(() => {
-    mockedPprint.mockClear();
+    (pprint as jest.Mock).mockClear();
   });
 
   describe('default format', () => {
@@ -69,7 +68,7 @@ describe('ticket formatting', () => {
 
     describe('commit', () => {
       it('is pretty-printed', () => {
-        mockedPprint.mockReturnValue('pretty-printed commit');
+        (pprint as jest.Mock).mockReturnValue('pretty-printed commit');
         const original = stdfmt.commit(ticket);
         const formatted = fmt.commit(ticket);
         expect(pprint).toHaveBeenCalledWith(original);
