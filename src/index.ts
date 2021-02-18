@@ -12,7 +12,7 @@ const fallbacks = {
 export const defaults = {
   branch: '{type | slugify}/{id | slugify}-{title | slugify}',
   commit: '[#{id}] {title}\n\n{description}\n\n{url}',
-  command: 'git checkout -b {branch | shellquote} && git commit --allow-empty -m {commit | shellquote}'
+  command: 'git checkout -b {branch | shellquote} &&  git commit --allow-empty -m {commit | shellquote}'
 };
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
