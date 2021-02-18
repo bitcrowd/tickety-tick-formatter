@@ -20,7 +20,7 @@ jobs:
     - name: Install
       run: |
         npm ci
-    - name: Compiles
+    - name: Build
       run: npm run build
     
     - name: Check un-tracked changes in /dist using git porcelain command
@@ -37,4 +37,3 @@ jobs:
 
     - name: Test w/ Coverage
       run: npm test -- --coverage
-
