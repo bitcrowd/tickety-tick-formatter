@@ -1,3 +1,9 @@
+export declare type Ticket = any;
+export declare type Templates = {
+    branch?: string;
+    commit?: string;
+    command?: string;
+};
 export declare type FormatterName = 'branch' | 'commit' | 'command';
-export declare type StringConverterFn = (input: string) => string;
-export declare type ParseFn = (values?: any) => string;
+export declare type StringMappingFn = (input: string) => string;
+export declare type FormatFn = (ticket: Ticket) => string;
