@@ -28,12 +28,12 @@ npm install tickety-tick-formatter
 ## Usage
 
 ```js
-import {formatter} from 'tickety-tick-formatter'
+import { formatter } from 'tickety-tick-formatter';
 
 const ticket = {
   id: 42,
   title: 'Find The Answer',
-  description: 'As a reader of many books....',
+  description: 'As a reader of many books...',
   type: 'Feature',
   url: 'https://github.com/bitcrowd/tickety-tick-formatter/issues/42'
 };
