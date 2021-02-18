@@ -5,11 +5,14 @@ module.exports = {
     '@typescript-eslint',
   ],
   extends: [
-    'standard-with-typescript',
+    'airbnb-typescript/base',
     'prettier',
     'prettier/@typescript-eslint',
   ],
   parserOptions: {
     project: './tsconfig.json'
+  },
+  rules: {
+    '@typescript-eslint/type-annotation-spacing': ['error'],
   }
 };

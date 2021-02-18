@@ -1,20 +1,20 @@
 import { createSlug } from 'speakingurl';
-import { stringConverterFn } from './types';
+import { StringConverterFn } from './types';
 
-export const lowercase = ():stringConverterFn => (s:string):string => s.toLowerCase();
+export const lowercase = (): StringConverterFn => (s: string): string => s.toLowerCase();
 
-export const shellquote = ():stringConverterFn => (s:string):string =>
+export const shellquote = (): StringConverterFn => (s: string): string =>
   typeof s === 'string' ? `'${s.replace(/'/g, "'\\''")}'` : "''";
 
-export const slugify = (separator = '-'):stringConverterFn => createSlug({ separator });
+export const slugify = (separator = '-'): StringConverterFn => createSlug({ separator });
 
-export const substring = (start: number, end?: number | undefined):stringConverterFn => (s:string) => s.substring(start, end);
+export const substring = (start: number, end?: number | undefined): StringConverterFn => (s: string) => s.substring(start, end);
 substring.description = 'substring(start-index[, end-index])';
 
-export const trim = ():stringConverterFn => (s:string) => s.trim();
+export const trim = (): StringConverterFn => (s: string) => s.trim();
 
-export const truncate = (limit:number):stringConverterFn => (s:string) =>
+export const truncate = (limit: number): StringConverterFn => (s: string) =>
   s.length > limit ? `${s.substring(0, limit - 1)}…` : s;
 truncate.description = 'truncate(max-length)';
 
-export const uppercase = ():stringConverterFn => (s:string) => s.toUpperCase();
+export const uppercase = (): StringConverterFn => (s: string) => s.toUpperCase();

@@ -1,5 +1,5 @@
 import * as helpers from './helpers';
-import { parseFn } from './types';
+import { ParseFn } from './types';
 export { helpers };
 export declare const defaults: {
     branch: string;
@@ -7,9 +7,9 @@ export declare const defaults: {
     command: string;
 };
 interface Parser {
-    branch: parseFn;
-    command: parseFn;
-    commit: parseFn;
+    branch: ParseFn;
+    command: ParseFn;
+    commit: ParseFn;
 }
 declare const _default: (templates?: {}, prettify?: boolean) => Parser;
 export default _default;

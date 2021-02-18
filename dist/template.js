@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var trim = function (s) { return s.trim(); };
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function safe(fn) {
-    /* eslint-disable @typescript-eslint/no-explicit-any */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return function wrapped() {
         var args = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -13,7 +13,7 @@ function safe(fn) {
             return fn.apply(void 0, args);
         }
         catch (err) {
-            /* eslint-disable @typescript-eslint/restrict-template-expressions */
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             return "!!(" + err.message + ")";
         }
     };
@@ -32,7 +32,7 @@ function raise(message) {
 //   'substring(3)'
 //   'substring(0, 10)'
 //
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function make(expr, transforms) {
     var _a;
     if (transforms === void 0) { transforms = {}; }
@@ -68,7 +68,7 @@ function compile(template, transforms) {
                 .split('|')
                 .map(trim), key_1 = _a[0], procs = _a.slice(1);
             var pipeline_1 = procs.map(function (expr) { return safe(make(expr, transforms)); });
-            /* eslint-disable @typescript-eslint/no-explicit-any */
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             return function (values) { var _a; return pipeline_1.reduce(function (v, fn) { return fn(v); }, (_a = values[key_1]) !== null && _a !== void 0 ? _a : ''); };
         }
         return function () { return part; };

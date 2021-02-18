@@ -8,7 +8,7 @@ describe('template', () => {
   });
 
   it('handles missing values', () => {
-    const transforms = { sparkle: () => (s:string) => `*${s}*` };
+    const transforms = { sparkle: () => (s: string) => `*${s}*` };
     const render = compile('--{nope | sparkle}', transforms);
     expect(render({})).toBe('--**');
     expect(render()).toBe('--**');
@@ -33,7 +33,7 @@ describe('template', () => {
 
   it('supports parameterized transformations', () => {
     const long = 'abcdefghijklmnopqrstuvwxyz';
-    const substring = (start:number, end:number) => (s:string) => s.substring(start, end);
+    const substring = (start: number, end: number) => (s: string) => s.substring(start, end);
     const transforms = { substring };
 
     const render = compile('pre {long | substring(15, 18)} post', transforms);
@@ -49,8 +49,8 @@ describe('template', () => {
   });
 
   it('handles invalid transformation parameters', () => {
-    const int = (s:string):number => Number.parseInt(s, 10);
-    const pow = (exp:string) => (s:string) => int(s) ** int(exp);
+    const int = (s: string): number => Number.parseInt(s, 10);
+    const pow = (exp: string) => (s: string) => int(s) ** int(exp);
 
     const render = compile('{a | pow(break)}', { pow });
     const output = render({ a: 12 });
@@ -60,8 +60,8 @@ describe('template', () => {
 
   it('ignores whitespace within template expressions', () => {
     const transforms = {
-      triple: () => (a:number) => a * 3,
-      square: () => (a:number) => a * a,
+      triple: () => (a: number) => a * 3,
+      square: () => (a: number) => a * a,
     };
 
     const render = compile(
@@ -80,7 +80,7 @@ describe('template', () => {
   });
 
   it('handles incomplete template expressions (incomplete filter pipeline)', () => {
-    const trim = () => (s:string) => s.trim();
+    const trim = () => (s: string) => s.trim();
     const render = compile('{a | trim |}', { trim });
     const output = render({});
     expect(output).toBe('!!(no helper named "undefined")');

@@ -46,25 +46,25 @@ exports.defaults = {
     commit: '[#{id}] {title}\n\n{description}\n\n{url}',
     command: 'git checkout -b {branch | shellquote} && git commit --allow-empty -m {commit | shellquote}'
 };
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 var renderer = function (templates, name) {
     var render = name in templates
         ? template_1.default(templates[name], helpers)
         : template_1.default(exports.defaults[name], helpers);
-    /* eslint-disable @typescript-eslint/no-explicit-any */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return function (values) { return render(__assign(__assign({}, fallbacks), values)).trim(); };
 };
 exports.default = (function (templates, prettify) {
     if (templates === void 0) { templates = {}; }
     if (prettify === void 0) { prettify = true; }
     var branch = renderer(templates, 'branch');
-    var _commit = renderer(templates, 'commit');
-    /* eslint-disable @typescript-eslint/no-explicit-any */
-    var commit = prettify ? function (values) { return pretty_print_1.default(_commit(values)); } : _commit;
-    var _command = renderer(templates, 'command');
-    /* eslint-disable @typescript-eslint/no-explicit-any */
+    var commitFn = renderer(templates, 'commit');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    var commit = prettify ? function (values) { return pretty_print_1.default(commitFn(values)); } : commitFn;
+    var commandFn = renderer(templates, 'command');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     var command = function (values) {
-        return _command(__assign({ branch: branch(values), commit: commit(values) }, values));
+        return commandFn(__assign({ branch: branch(values), commit: commit(values) }, values));
     };
     return { branch: branch, command: command, commit: commit };
 });
