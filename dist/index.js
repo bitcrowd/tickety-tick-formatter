@@ -33,7 +33,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defaults = exports.helpers = void 0;
+exports.templateDefaults = exports.helpers = void 0;
 var helpers = __importStar(require("./helpers"));
 exports.helpers = helpers;
 var pretty_print_1 = __importDefault(require("./pretty-print"));
@@ -41,30 +41,25 @@ var template_1 = __importDefault(require("./template"));
 var fallbacks = {
     type: 'feature',
 };
-exports.defaults = {
+exports.templateDefaults = {
     branch: '{type | slugify}/{id | slugify}-{title | slugify}',
     commit: '[#{id}] {title}\n\n{description}\n\n{url}',
     command: 'git checkout -b {branch | shellquote} && git commit --allow-empty -m {commit | shellquote}'
 };
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 var renderer = function (templates, name) {
-    var render = name in templates
-        ? template_1.default(templates[name], helpers)
-        : template_1.default(exports.defaults[name], helpers);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return function (values) { return render(__assign(__assign({}, fallbacks), values)).trim(); };
+    var completeTemplates = __assign(__assign({}, exports.templateDefaults), { templates: templates });
+    var render = template_1.default(completeTemplates[name], helpers);
+    return function (ticket) { return render(__assign(__assign({}, fallbacks), ticket)).trim(); };
 };
 exports.default = (function (templates, prettify) {
     if (templates === void 0) { templates = {}; }
     if (prettify === void 0) { prettify = true; }
     var branch = renderer(templates, 'branch');
     var commitFn = renderer(templates, 'commit');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    var commit = prettify ? function (values) { return pretty_print_1.default(commitFn(values)); } : commitFn;
+    var commit = prettify ? function (ticket) { return pretty_print_1.default(commitFn(ticket)); } : commitFn;
     var commandFn = renderer(templates, 'command');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    var command = function (values) {
-        return commandFn(__assign({ branch: branch(values), commit: commit(values) }, values));
+    var command = function (ticket) {
+        return commandFn(__assign({ branch: branch(ticket), commit: commit(ticket) }, ticket));
     };
     return { branch: branch, command: command, commit: commit };
 });

@@ -1,14 +1,14 @@
-import { StringConverterFn } from './types';
-export declare const lowercase: () => StringConverterFn;
-export declare const shellquote: () => StringConverterFn;
-export declare const slugify: (separator?: string) => StringConverterFn;
+import { StringMappingFn } from './types';
+export declare const lowercase: () => StringMappingFn;
+export declare const shellquote: () => StringMappingFn;
+export declare const slugify: (separator?: string) => StringMappingFn;
 export declare const substring: {
-    (start: number, end?: number | undefined): StringConverterFn;
+    (start: number, end?: number | undefined): StringMappingFn;
     description: string;
 };
-export declare const trim: () => StringConverterFn;
+export declare const trim: () => StringMappingFn;
 export declare const truncate: {
-    (limit: number): StringConverterFn;
+    (limit: number): StringMappingFn;
     description: string;
 };
-export declare const uppercase: () => StringConverterFn;
+export declare const uppercase: () => StringMappingFn;

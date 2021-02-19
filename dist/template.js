@@ -68,8 +68,7 @@ function compile(template, transforms) {
                 .split('|')
                 .map(trim), key_1 = _a[0], procs = _a.slice(1);
             var pipeline_1 = procs.map(function (expr) { return safe(make(expr, transforms)); });
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            return function (values) { var _a; return pipeline_1.reduce(function (v, fn) { return fn(v); }, (_a = values[key_1]) !== null && _a !== void 0 ? _a : ''); };
+            return function (values) { var _a; return pipeline_1.reduce(function (v, fn) { return fn(v); }, (_a = values[(key_1)]) !== null && _a !== void 0 ? _a : ''); };
         }
         return function () { return part; };
     });

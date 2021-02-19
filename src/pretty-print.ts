@@ -10,10 +10,10 @@ function format(text: string, width: number): string {
   return prettier.format(text, { ...config, printWidth: width, proseWrap: 'always' });
 }
 
-function split(text: string, separator: string): string[] {
+function split(text: string, separator: string): [string, string | null] {
   const position = text.indexOf(separator);
 
-  if (position < 0) return [text];
+  if (position < 0) return [text, null];
 
   const head = text.substring(0, position);
   const tail = text.substring(position + separator.length);
@@ -41,16 +41,16 @@ function gitbody(text: string): string {
   return format(body, widths.body);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function maybe(value: any, fn: any): any {
-  if (typeof value !== 'string') return value;
+function maybe(value: string | null, fn: (text: string) => string): string | null {
+  if (value === null) return null;
+
   return fn(value);
 }
 
 function print(text: string): string {
   const [line0, rest] = split(text.trim(), '\n');
   const parts = [maybe(line0, gitsubject), maybe(rest, gitbody)];
-  return parts.filter(Boolean).join('\n\n');
+  return parts.filter((v: string | null) => v !== null).join('\n\n');
 }
 
 export default print;

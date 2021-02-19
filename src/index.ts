@@ -1,7 +1,7 @@
 import * as helpers from './helpers';
 import pprint from './pretty-print';
 import compile from './template';
-import { ParseFn, FormatterName } from './types';
+import { FormatFn, FormatterName, Templates, Ticket } from './types';
 
 export { helpers };
 
@@ -9,26 +9,23 @@ const fallbacks = {
   type: 'feature',
 };
 
-export const defaults = {
+export const templateDefaults = {
   branch: '{type | slugify}/{id | slugify}-{title | slugify}',
   commit: '[#{id}] {title}\n\n{description}\n\n{url}',
   command: 'git checkout -b {branch | shellquote} && git commit --allow-empty -m {commit | shellquote}'
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const renderer = (templates: any, name: FormatterName): ParseFn => {
-  const render = name in templates
-                 ? compile(templates[name], helpers)
-                 : compile(defaults[name], helpers);
+const renderer = (templates: Templates, name: FormatterName): FormatFn => {
+  const completeTemplates = {...templateDefaults, templates};
+  const render = compile(completeTemplates[name], helpers);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (values: any) => render({ ...fallbacks, ...values }).trim();
+  return (ticket: Ticket) => render({ ...fallbacks, ...ticket }).trim();
 };
 
 interface Parser {
-  branch: ParseFn,
-  command: ParseFn,
-  commit: ParseFn,
+  branch: FormatFn,
+  command: FormatFn,
+  commit: FormatFn,
 }
 
 export default (templates = {}, prettify = true): Parser => {
@@ -36,17 +33,15 @@ export default (templates = {}, prettify = true): Parser => {
 
   const commitFn = renderer(templates, 'commit');
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const commit = prettify ? (values: any) => pprint(commitFn(values)) : commitFn;
+  const commit = prettify ? (ticket: Ticket) => pprint(commitFn(ticket)) : commitFn;
 
   const commandFn = renderer(templates, 'command');
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const command = (values: any): string =>
+  const command = (ticket: Ticket): string =>
     commandFn({
-      branch: branch(values),
-      commit: commit(values),
-      ...values,
+      branch: branch(ticket),
+      commit: commit(ticket),
+      ...ticket,
     });
 
   return { branch, command, commit };

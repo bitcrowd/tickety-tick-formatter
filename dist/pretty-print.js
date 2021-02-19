@@ -25,7 +25,7 @@ function format(text, width) {
 function split(text, separator) {
     var position = text.indexOf(separator);
     if (position < 0)
-        return [text];
+        return [text, null];
     var head = text.substring(0, position);
     var tail = text.substring(position + separator.length);
     return [head, tail];
@@ -45,15 +45,14 @@ function gitbody(text) {
     var body = strip_indent_1.default(text.replace(/^(\s*\n)*|\s*$/, ''));
     return format(body, widths.body);
 }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function maybe(value, fn) {
-    if (typeof value !== 'string')
-        return value;
+    if (value === null)
+        return null;
     return fn(value);
 }
 function print(text) {
     var _a = split(text.trim(), '\n'), line0 = _a[0], rest = _a[1];
     var parts = [maybe(line0, gitsubject), maybe(rest, gitbody)];
-    return parts.filter(Boolean).join('\n\n');
+    return parts.filter(function (v) { return v !== null; }).join('\n\n');
 }
 exports.default = print;
