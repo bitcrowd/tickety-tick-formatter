@@ -8,7 +8,9 @@
   * branch?: string,
   * commit?: string,
 */
-export type Ticket = any;
+export type Ticket = {
+  [key: string]: number | string
+};
 export type Templates = {
   branch?: string,
   commit?: string,

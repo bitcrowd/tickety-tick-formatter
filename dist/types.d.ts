@@ -1,4 +1,6 @@
-export declare type Ticket = any;
+export declare type Ticket = {
+    [key: string]: number | string;
+};
 export declare type Templates = {
     branch?: string;
     commit?: string;
