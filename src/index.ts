@@ -1,7 +1,7 @@
 import * as helpers from './helpers';
 import pprint from './pretty-print';
 import compile from './template';
-import { parseFn, FormatterName } from './types';
+import { ParseFn, FormatterName } from './types';
 
 export { helpers };
 
@@ -15,35 +15,35 @@ export const defaults = {
   command: 'git checkout -b {branch | shellquote} && git commit --allow-empty -m {commit | shellquote}'
 };
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-const renderer = (templates:any, name:FormatterName):parseFn => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const renderer = (templates: any, name: FormatterName): ParseFn => {
   const render = name in templates
                  ? compile(templates[name], helpers)
                  : compile(defaults[name], helpers);
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  return (values:any) => render({ ...fallbacks, ...values }).trim();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return (values: any) => render({ ...fallbacks, ...values }).trim();
 };
 
 interface Parser {
-  branch: parseFn,
-  command: parseFn,
-  commit: parseFn,
+  branch: ParseFn,
+  command: ParseFn,
+  commit: ParseFn,
 }
 
-export default (templates = {}, prettify = true):Parser => {
+export default (templates = {}, prettify = true): Parser => {
   const branch = renderer(templates, 'branch');
 
-  const _commit = renderer(templates, 'commit');
+  const commitFn = renderer(templates, 'commit');
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  const commit = prettify ? (values:any) => pprint(_commit(values)) : _commit;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const commit = prettify ? (values: any) => pprint(commitFn(values)) : commitFn;
 
-  const _command = renderer(templates, 'command');
+  const commandFn = renderer(templates, 'command');
 
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  const command = (values:any):string =>
-    _command({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const command = (values: any): string =>
+    commandFn({
       branch: branch(values),
       commit: commit(values),
       ...values,

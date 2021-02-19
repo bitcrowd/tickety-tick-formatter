@@ -1,2 +1,15 @@
-node_modules
-yarn.lock
+# Logs
+npm-debug.log*
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm/
+
+# Optional eslint cache
+.eslintcache/
+
+# Test reports
+coverage/
+junit.xml

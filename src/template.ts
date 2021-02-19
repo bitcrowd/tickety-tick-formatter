@@ -1,21 +1,21 @@
-import { parseFn } from "./types";
+import { ParseFn } from "./types";
 
-const trim = (s:string):string => s.trim();
+const trim = (s: string): string => s.trim();
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-function safe(fn:any) {
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  return function wrapped(...args:any) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function safe(fn: any) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return function wrapped(...args: any) {
     try {
       return fn(...args);
     } catch (err) {
-      /* eslint-disable @typescript-eslint/restrict-template-expressions */
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       return `!!(${err.message})`;
     }
   };
 }
 
-function raise(message:string) {
+function raise(message: string) {
   return function raises() {
     throw new Error(message);
   };
@@ -30,8 +30,8 @@ function raise(message:string) {
 //   'substring(3)'
 //   'substring(0, 10)'
 //
-/* eslint-disable @typescript-eslint/no-explicit-any */
-function make(expr:string, transforms:any = {}):any {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function make(expr: string, transforms: any = {}): any {
   const [, name, , argstr = ''] = expr.match(/^([^()]+)(\((.+)\))?$/) ?? [];
 
   const fn = transforms[name];
@@ -54,7 +54,7 @@ function make(expr:string, transforms:any = {}):any {
 //   'b = {v | lowercase}'
 //   'c = {v | lowercase | substring(0, 3)}'
 //
-function compile(template:string, transforms = {}):parseFn {
+function compile(template: string, transforms = {}): ParseFn {
   const parts = template.match(/\{[^}]*\}|[^{]+/g);
 
   if (parts === null) return () => template;
@@ -68,8 +68,8 @@ function compile(template:string, transforms = {}):parseFn {
 
       const pipeline = procs.map((expr) => safe(make(expr, transforms)));
 
-      /* eslint-disable @typescript-eslint/no-explicit-any */
-      return (values:any) => pipeline.reduce((v, fn) => fn(v), values[key] ?? '');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return (values: any) => pipeline.reduce((v, fn) => fn(v), values[key] ?? '');
     }
 
     return () => part;

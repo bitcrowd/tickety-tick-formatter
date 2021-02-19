@@ -45,7 +45,7 @@ function gitbody(text) {
     var body = strip_indent_1.default(text.replace(/^(\s*\n)*|\s*$/, ''));
     return format(body, widths.body);
 }
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function maybe(value, fn) {
     if (typeof value !== 'string')
         return value;

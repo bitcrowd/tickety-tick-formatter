@@ -6,11 +6,11 @@ const widths = { subject: 50, body: 72 };
 
 const config = { parser: 'markdown', plugins: [markdown] };
 
-function format(text:string, width:number):string {
+function format(text: string, width: number): string {
   return prettier.format(text, { ...config, printWidth: width, proseWrap: 'always' });
 }
 
-function split(text:string, separator:string):string[] {
+function split(text: string, separator: string): string[] {
   const position = text.indexOf(separator);
 
   if (position < 0) return [text];
@@ -21,11 +21,11 @@ function split(text:string, separator:string):string[] {
   return [head, tail];
 }
 
-function capitalize(text:string):string {
+function capitalize(text: string): string {
   return text.replace(/^[a-zA-Z]|\s[a-zA-Z]/, (w) => w.toUpperCase());
 }
 
-function gitsubject(text:string):string {
+function gitsubject(text: string): string {
   const subject = capitalize(text.trim());
 
   if (subject.length > widths.subject) {
@@ -36,18 +36,18 @@ function gitsubject(text:string):string {
   return subject;
 }
 
-function gitbody(text:string):string {
+function gitbody(text: string): string {
   const body = unindent(text.replace(/^(\s*\n)*|\s*$/, ''));
   return format(body, widths.body);
 }
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-function maybe(value:any, fn:any):any {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function maybe(value: any, fn: any): any {
   if (typeof value !== 'string') return value;
   return fn(value);
 }
 
-function print(text:string):string {
+function print(text: string): string {
   const [line0, rest] = split(text.trim(), '\n');
   const parts = [maybe(line0, gitsubject), maybe(rest, gitbody)];
   return parts.filter(Boolean).join('\n\n');

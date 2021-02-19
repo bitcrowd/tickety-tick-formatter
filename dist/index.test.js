@@ -25,7 +25,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = __importStar(require("."));
 var pretty_print_1 = __importDefault(require("./pretty-print"));
 jest.mock('./pretty-print', function () { return jest.fn(); });
-var mockedPprint = pretty_print_1.default;
 describe('ticket formatting', function () {
     var ticket = {
         id: 'BTC-042',
@@ -33,7 +32,7 @@ describe('ticket formatting', function () {
         type: 'new enhancement',
     };
     beforeEach(function () {
-        mockedPprint.mockClear();
+        pretty_print_1.default.mockClear();
     });
     describe('default format', function () {
         var fmt = _1.default({}, false);
@@ -71,7 +70,7 @@ describe('ticket formatting', function () {
         var fmt = _1.default({}, true);
         describe('commit', function () {
             it('is pretty-printed', function () {
-                mockedPprint.mockReturnValue('pretty-printed commit');
+                pretty_print_1.default.mockReturnValue('pretty-printed commit');
                 var original = stdfmt.commit(ticket);
                 var formatted = fmt.commit(ticket);
                 expect(pretty_print_1.default).toHaveBeenCalledWith(original);
