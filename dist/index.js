@@ -44,7 +44,7 @@ var fallbacks = {
 exports.templateDefaults = {
     branch: '{type | slugify}/{id | slugify}-{title | slugify}',
     commit: '[#{id}] {title}\n\n{description}\n\n{url}',
-    command: 'git checkout -b {branch | shellquote} && git commit --allow-empty -m {commit | shellquote}'
+    command: 'git checkout -b {branch | shellquote} && git commit --allow-empty -m {commit | shellquote}',
 };
 var renderer = function (templates, name) {
     var completeTemplates = __assign(__assign({}, exports.templateDefaults), { templates: templates });
@@ -56,7 +56,9 @@ exports.default = (function (templates, prettify) {
     if (prettify === void 0) { prettify = true; }
     var branch = renderer(templates, 'branch');
     var commitFn = renderer(templates, 'commit');
-    var commit = prettify ? function (ticket) { return pretty_print_1.default(commitFn(ticket)); } : commitFn;
+    var commit = prettify
+        ? function (ticket) { return pretty_print_1.default(commitFn(ticket)); }
+        : commitFn;
     var commandFn = renderer(templates, 'command');
     var command = function (ticket) {
         return commandFn(__assign({ branch: branch(ticket), commit: commit(ticket) }, ticket));

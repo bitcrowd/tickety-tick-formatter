@@ -2,7 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.uppercase = exports.truncate = exports.trim = exports.substring = exports.slugify = exports.shellquote = exports.lowercase = void 0;
 var speakingurl_1 = require("speakingurl");
-var lowercase = function () { return function (s) { return s.toLowerCase(); }; };
+var lowercase = function () { return function (s) {
+    return s.toLowerCase();
+}; };
 exports.lowercase = lowercase;
 var shellquote = function () { return function (s) {
     return typeof s === 'string' ? "'" + s.replace(/'/g, "'\\''") + "'" : "''";

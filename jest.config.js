@@ -3,35 +3,23 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   globals: {
-    "ts-jest": {
-      "tsconfig": "tsconfig.json"
-    }
+    'ts-jest': {
+      tsconfig: 'tsconfig.json',
+    },
   },
   transform: {
-    "^.+\\.ts?$": "ts-jest",
+    '^.+\\.ts?$': 'ts-jest',
   },
-  testMatch: [ 
-    "**/__tests__/**/*.ts", 
-    "**/?(*.)+(spec|test).ts" 
-  ],
-  testEnvironment: "node",
-  collectCoverageFrom: [
-    "src/**/*.ts"
-  ],
-  coveragePathIgnorePatterns: [
-    "<rootDir>/node_modules"
-  ],
-  coverageReporters: [
-    "json",
-    "lcov",
-    "text"
-  ],
+  testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
+  collectCoverageFrom: ['src/**/*.ts'],
+  coveragePathIgnorePatterns: ['<rootDir>/node_modules'],
+  coverageReporters: ['json', 'lcov', 'text'],
   coverageThreshold: {
-    "global": {
-      "branches": 62,
-      "functions": 100,
-      "lines": 100,
-      "statements": 100
-    }
+    global: {
+      branches: 62,
+      functions: 100,
+      lines: 100,
+      statements: 100,
+    },
   },
 };

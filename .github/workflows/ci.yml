@@ -18,20 +18,20 @@ jobs:
         node-version: ${{ matrix.nodejs }}
 
     - name: Install
-      run: |
-        npm ci
+      run: npm ci
+
     - name: Build
       run: npm run build
-    
+
     - name: Check un-tracked changes in /dist using git porcelain command
       run: |
         if [[ `git status ./dist --porcelain` ]]
         then
-          echo "ERROR: running the previous command has introduced changes. Hence, Failing the build."
+          echo "ERROR: Running the previous command has introduced changes. Hence, failing the build."
           git status --porcelain
           exit 1
         fi
-    
+
     - name: Lint
       run: npm run lint
 

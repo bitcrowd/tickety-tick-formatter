@@ -33,7 +33,8 @@ describe('template', () => {
 
   it('supports parameterized transformations', () => {
     const long = 'abcdefghijklmnopqrstuvwxyz';
-    const substring = (start: number, end: number) => (s: string) => s.substring(start, end);
+    const substring = (start: number, end: number) => (s: string) =>
+      s.substring(start, end);
     const transforms = { substring };
 
     const render = compile('pre {long | substring(15, 18)} post', transforms);

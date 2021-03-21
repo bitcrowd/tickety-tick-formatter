@@ -31,7 +31,9 @@ describe('template', function () {
     });
     it('supports parameterized transformations', function () {
         var long = 'abcdefghijklmnopqrstuvwxyz';
-        var substring = function (start, end) { return function (s) { return s.substring(start, end); }; };
+        var substring = function (start, end) { return function (s) {
+            return s.substring(start, end);
+        }; };
         var transforms = { substring: substring };
         var render = template_1.default('pre {long | substring(15, 18)} post', transforms);
         var output = render({ long: long });
