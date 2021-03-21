@@ -10,12 +10,7 @@
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended"
   ],
-  "plugins": [
-    "@typescript-eslint",
-    "jest",
-    "prettier",
-    "simple-import-sort"
-  ],
+  "plugins": ["@typescript-eslint", "jest", "prettier", "simple-import-sort"],
   "settings": {
     "import/extensions": [".js", ".ts"],
     "import/resolver": {
