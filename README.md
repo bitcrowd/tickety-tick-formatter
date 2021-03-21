@@ -1,6 +1,6 @@
 # Tickety-Tick Formatter
 
-> Format your tickets into git-digestable branch names and commit messages
+> Format your tickets into git-digestible branch names and commit messages
 
 This formatter takes an `id`, `type`, `subject`, and `url` of a ticket (e.g. from GitHub issues, Jira, or any other ticket system) and converts it to:
 
@@ -90,7 +90,7 @@ npm run build
 
 For development, it may be easier to use `npm run build -- --watch` for continuous building.
 A build, compiles the TypeScript sources from `src` to JavaScript in `dist`.
-The compiled JavaScript sources are intended to be commited.
+The compiled JavaScript sources are intended to be committed.
 
 ### Releasing a new version
 
