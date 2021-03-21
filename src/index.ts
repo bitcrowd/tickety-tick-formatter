@@ -12,20 +12,21 @@ const fallbacks = {
 export const templateDefaults = {
   branch: '{type | slugify}/{id | slugify}-{title | slugify}',
   commit: '[#{id}] {title}\n\n{description}\n\n{url}',
-  command: 'git checkout -b {branch | shellquote} && git commit --allow-empty -m {commit | shellquote}'
+  command:
+    'git checkout -b {branch | shellquote} && git commit --allow-empty -m {commit | shellquote}',
 };
 
 const renderer = (templates: Templates, name: FormatterName): FormatFn => {
-  const completeTemplates = {...templateDefaults, templates};
+  const completeTemplates = { ...templateDefaults, templates };
   const render = compile(completeTemplates[name], helpers);
 
   return (ticket: Ticket) => render({ ...fallbacks, ...ticket }).trim();
 };
 
 interface Parser {
-  branch: FormatFn,
-  command: FormatFn,
-  commit: FormatFn,
+  branch: FormatFn;
+  command: FormatFn;
+  commit: FormatFn;
 }
 
 export default (templates = {}, prettify = true): Parser => {
@@ -33,7 +34,9 @@ export default (templates = {}, prettify = true): Parser => {
 
   const commitFn = renderer(templates, 'commit');
 
-  const commit = prettify ? (ticket: Ticket) => pprint(commitFn(ticket)) : commitFn;
+  const commit = prettify
+    ? (ticket: Ticket) => pprint(commitFn(ticket))
+    : commitFn;
 
   const commandFn = renderer(templates, 'command');
 

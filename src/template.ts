@@ -1,4 +1,4 @@
-import { Ticket } from "./types";
+import { Ticket } from './types';
 
 const trim = (s: string): string => s.trim();
 
@@ -54,7 +54,10 @@ function make(expr: string, transforms: any = {}): any {
 //   'b = {v | lowercase}'
 //   'c = {v | lowercase | substring(0, 3)}'
 //
-function compile(template: string, transforms = {}): (ticket?: Ticket) => string {
+function compile(
+  template: string,
+  transforms = {}
+): (ticket?: Ticket) => string {
   const parts = template.match(/\{[^}]*\}|[^{]+/g);
 
   if (parts === null) return () => template;
@@ -68,7 +71,8 @@ function compile(template: string, transforms = {}): (ticket?: Ticket) => string
 
       const pipeline = procs.map((expr) => safe(make(expr, transforms)));
 
-      return (values: Ticket) => pipeline.reduce((v, fn) => fn(v), values[(key)] ?? '');
+      return (values: Ticket) =>
+        pipeline.reduce((v, fn) => fn(v), values[key] ?? '');
     }
 
     return () => part;

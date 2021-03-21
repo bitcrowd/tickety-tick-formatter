@@ -7,7 +7,11 @@ const widths = { subject: 50, body: 72 };
 const config = { parser: 'markdown', plugins: [markdown] };
 
 function format(text: string, width: number): string {
-  return prettier.format(text, { ...config, printWidth: width, proseWrap: 'always' });
+  return prettier.format(text, {
+    ...config,
+    printWidth: width,
+    proseWrap: 'always',
+  });
 }
 
 function split(text: string, separator: string): [string, string | null] {
@@ -41,9 +45,11 @@ function gitbody(text: string): string {
   return format(body, widths.body);
 }
 
-function maybe(value: string | null, fn: (text: string) => string): string | null {
+function maybe(
+  value: string | null,
+  fn: (text: string) => string
+): string | null {
   if (value === null) return null;
-
   return fn(value);
 }
 

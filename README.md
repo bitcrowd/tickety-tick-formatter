@@ -1,11 +1,12 @@
 # Tickety-Tick Formatter
 
-> Format your tickets into git-digestable branch names and commit messages
+> Format your tickets into git-digestible branch names and commit messages
 
 This formatter takes an `id`, `type`, `subject`, and `url` of a ticket (e.g. from GitHub issues, Jira, or any other ticket system) and converts it to:
 
-* a Git branch name, e.g. `feature/42-find-the-answer`
-* a default commit message, e.g.
+- a Git branch name, e.g. `feature/42-find-the-answer`
+- a default commit message, e.g.
+
   ```
   [#42] Find The Answer
 
@@ -14,10 +15,10 @@ This formatter takes an `id`, `type`, `subject`, and `url` of a ticket (e.g. fro
 
   https://github.com/bitcrowd/tickety-tick-formatter/issues/42
   ```
-* a shell command for creating a new branch with an empty commit having the above branch name and commit message
+
+- a shell command for creating a new branch with an empty commit having the above branch name and commit message
 
 This package is prominently used in [tickety-tick](https://github.com/bitcrowd/tickety-tick), [bitcrowd's](https://bitcrowd.net) browser extension to standardize a team's Git workflow.
-
 
 ## Install
 
@@ -35,7 +36,7 @@ const ticket = {
   title: 'Find The Answer',
   description: 'As a reader of many books...',
   type: 'Feature',
-  url: 'https://github.com/bitcrowd/tickety-tick-formatter/issues/42'
+  url: 'https://github.com/bitcrowd/tickety-tick-formatter/issues/42',
 };
 
 const { branch, commit, command } = formatter();
@@ -68,6 +69,15 @@ const {branch, commit, command} = formatter();
 branch(ticket);  // '42_find-the-answer'
 ```
 
+### Developing
+
+- `npm run lint` to run static analysis on the code
+  - use `npm run lint:js -- --fix` to correct auto-fixable problems in JS and Typescript code
+  - use `npm run lint:json -- --write` to auto-format JSON files
+  - use `npm run lint:md -- --write` to auto-format Markdown files
+- `npm run test` to run tests
+  - append `-- --watch` to re-run tests on file changes
+
 ## Building
 
 In order to build the extension from source, run:
@@ -80,7 +90,7 @@ npm run build
 
 For development, it may be easier to use `npm run build -- --watch` for continuous building.
 A build, compiles the TypeScript sources from `src` to JavaScript in `dist`.
-The compiled JavaScript sources are intended to be commited.
+The compiled JavaScript sources are intended to be committed.
 
 ### Releasing a new version
 

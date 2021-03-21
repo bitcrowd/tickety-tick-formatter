@@ -9,12 +9,12 @@
   * commit?: string,
 */
 export type Ticket = {
-  [key: string]: number | string
+  [key: string]: number | string;
 };
 export type Templates = {
-  branch?: string,
-  commit?: string,
-  command?: string
+  branch?: string;
+  commit?: string;
+  command?: string;
 };
 export type FormatterName = 'branch' | 'commit' | 'command';
 export type StringMappingFn = (input: string) => string;
