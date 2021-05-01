@@ -62,6 +62,19 @@ describe('ticket formatting', () => {
     });
   });
 
+  describe('with template overrides', () => {
+    (['branch', 'commit', 'command'] as const).forEach((key) => {
+      describe(`${key}`, () => {
+        it('renders the custom template', () => {
+          const template = `${key}-formatted`;
+          const fmt = format({ [key]: template }, false);
+          const formatted = fmt[key](ticket);
+          expect(formatted).toBe(template);
+        });
+      });
+    });
+  });
+
   describe('with pretty-printing enabled', () => {
     const stdfmt = format({}, false);
     const fmt = format({}, true);
