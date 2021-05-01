@@ -65,6 +65,19 @@ describe('ticket formatting', function () {
             });
         });
     });
+    describe('with template overrides', function () {
+        ['branch', 'commit', 'command'].forEach(function (key) {
+            describe("" + key, function () {
+                it('renders the custom template', function () {
+                    var _a;
+                    var template = key + "-formatted";
+                    var fmt = _1.default((_a = {}, _a[key] = template, _a), false);
+                    var formatted = fmt[key](ticket);
+                    expect(formatted).toBe(template);
+                });
+            });
+        });
+    });
     describe('with pretty-printing enabled', function () {
         var stdfmt = _1.default({}, false);
         var fmt = _1.default({}, true);

@@ -47,8 +47,7 @@ exports.templateDefaults = {
     command: 'git checkout -b {branch | shellquote} && git commit --allow-empty -m {commit | shellquote}',
 };
 var renderer = function (templates, name) {
-    var completeTemplates = __assign(__assign({}, exports.templateDefaults), { templates: templates });
-    var render = template_1.default(completeTemplates[name], helpers);
+    var render = template_1.default(templates[name] || exports.templateDefaults[name], helpers);
     return function (ticket) { return render(__assign(__assign({}, fallbacks), ticket)).trim(); };
 };
 exports.default = (function (templates, prettify) {
