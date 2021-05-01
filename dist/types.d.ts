@@ -6,6 +6,11 @@ export declare type Templates = {
     commit?: string;
     command?: string;
 };
-export declare type FormatterName = 'branch' | 'commit' | 'command';
-export declare type StringMappingFn = (input: string) => string;
 export declare type FormatFn = (ticket: Ticket) => string;
+export interface Formatter {
+    branch: FormatFn;
+    command: FormatFn;
+    commit: FormatFn;
+}
+export declare type FormatterName = keyof Formatter;
+export declare type StringMappingFn = (input: string) => string;

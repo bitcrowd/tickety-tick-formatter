@@ -1,7 +1,7 @@
 import * as helpers from './helpers';
 import pprint from './pretty-print';
 import compile from './template';
-import { FormatFn, FormatterName, Templates, Ticket } from './types';
+import { FormatFn, Formatter, FormatterName, Templates, Ticket } from './types';
 
 export { helpers };
 
@@ -23,13 +23,7 @@ const renderer = (templates: Templates, name: FormatterName): FormatFn => {
   return (ticket: Ticket) => render({ ...fallbacks, ...ticket }).trim();
 };
 
-interface Parser {
-  branch: FormatFn;
-  command: FormatFn;
-  commit: FormatFn;
-}
-
-export default (templates = {}, prettify = true): Parser => {
+export default (templates = {}, prettify = true): Formatter => {
   const branch = renderer(templates, 'branch');
 
   const commitFn = renderer(templates, 'commit');
