@@ -17,9 +17,7 @@ export const templateDefaults = {
 };
 
 const renderer = (templates: Templates, name: FormatterName): FormatFn => {
-  const completeTemplates = { ...templateDefaults, templates };
-  const render = compile(completeTemplates[name], helpers);
-
+  const render = compile(templates[name] || templateDefaults[name], helpers);
   return (ticket: Ticket) => render({ ...fallbacks, ...ticket }).trim();
 };
 
