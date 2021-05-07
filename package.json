@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "Format your tickets into git-digestable branch names and commit messages",
   "main": "./dist/index.js",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsc --project .",
-    "lint:js": "eslint --ignore-path .gitignore --ignore-pattern 'dist/*' --ext .js,.ts .",
+    "prepare": "npm run build",
+    "build": "del-cli dist && tsc --project .",
+    "lint:js": "eslint --ignore-path .gitignore --ext .js,.ts .",
     "lint:json": "prettier --ignore-path .gitignore --check '**/*.json'",
     "lint:md": "prettier --ignore-path .gitignore --check '**/*.md'",
     "lint": "run-s --continue-on-error lint:js lint:json lint:md",
@@ -36,6 +39,7 @@
     "@types/speakingurl": "^13.0.2",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
     "@typescript-eslint/parser": "^4.15.1",
+    "del-cli": "^3.0.1",
     "eslint": "^7.22.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^7.2.0",

@@ -80,7 +80,7 @@ branch(ticket);  // '42_find-the-answer'
 
 ## Building
 
-In order to build the extension from source, run:
+In order to build from source, run:
 
 ```shell
 npm install
@@ -90,7 +90,6 @@ npm run build
 
 For development, it may be easier to use `npm run build -- --watch` for continuous building.
 A build, compiles the TypeScript sources from `src` to JavaScript in `dist`.
-The compiled JavaScript sources are intended to be committed.
 
 ### Releasing a new version
 
