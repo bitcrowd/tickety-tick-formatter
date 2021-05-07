@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "Format your tickets into git-digestable branch names and commit messages",
   "main": "./dist/index.js",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
+    "prepare": "npm run build",
     "build": "del-cli dist && tsc --project .",
     "lint:js": "eslint --ignore-path .gitignore --ext .js,.ts .",
     "lint:json": "prettier --ignore-path .gitignore --check '**/*.json'",
