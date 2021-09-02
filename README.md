@@ -1,3 +1,7 @@
+# Deprecated
+
+This repository is no longer supported. You can still use and fork it. ⛔️
+
 # Tickety-Tick Formatter
 
 > Format your tickets into git-digestible branch names and commit messages
